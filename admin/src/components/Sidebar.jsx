@@ -7,32 +7,38 @@ const Sidebar = () => {
     <div className="w-[18%] min-h-screen border-r-2">
       <div className="flex flex-col gap-4 pt-6 pl-[20%] text-[15px]">
         <NavLink
-          className={
-            "flex items-center gap-3 border border-gray-500 border-r-0 px-3 py-2 rounded-lg bg-gray-200"
-          }
-          to={"/add"}
-        >
-          <img className="w-6 h-6" src={assets.add_icon} alt="Add Items" />
-          <p className="hidden text-lg font-semibold md:block">Add Items</p>
-        </NavLink>
+  className={({ isActive }) =>
+    `flex items-center gap-3 py-2 px-3 md:px-9 border border-gray-300 border-r-0 rounded-l-md ${
+      isActive ? "bg-[#ffebf5] border-[#ffebf5]" : "bg-white"
+    }`
+  }
+  to={"/add"}
+>
+  <img className="w-5 h-5" src={assets.add_icon} alt="Add Items" />
+  <p className="hidden md:block font-medium text-gray-700">Add Items</p>
+</NavLink>
         <NavLink
-          className={
-            "flex items-center gap-3 border border-gray-500 border-r-0 px-3 py-2 rounded-lg bg-gray-200"
-          }
-          to={"/list"}
-        >
-          <img className="w-6 h-6" src={assets.parcel_icon} alt="List Items" />
-          <p className="hidden text-lg font-semibold md:block">List Items</p>
-        </NavLink>
+  className={({ isActive }) =>
+    `flex items-center gap-3 py-2 px-3 md:px-9 border border-gray-300 border-r-0 rounded-l-md ${
+      isActive ? "bg-[#FFF1F6] border-[#FF4667]" : "bg-white border-gray-300"
+    }`
+  }
+  to={"/list"}
+>
+  <img className="w-5 h-5" src={assets.order_icon} alt="List Items" />
+  <p className="hidden md:block font-medium text-gray-700">List Items</p>
+</NavLink>
         <NavLink
-          className={
-            "flex items-center gap-3 border border-gray-500 border-r-0 px-3 py-2 rounded-lg bg-gray-200"
-          }
-          to={"/orders"}
-        >
-          <img className="w-6 h-6" src={assets.order_icon} alt="Add Products" />
-          <p className="hidden text-lg font-semibold md:block">View Orders</p>
-        </NavLink>
+  className={({ isActive }) =>
+    `flex items-center gap-3 py-2 px-3 md:px-9 border border-gray-300 border-r-0 rounded-l-md ${
+      isActive ? "bg-[#FFF1F6] border-[#FF4667]" : "bg-white border-gray-300"
+    }`
+  }
+  to={"/orders"}
+>
+  <img className="w-5 h-5" src={assets.order_icon} alt="Orders" />
+  <p className="hidden md:block font-medium text-gray-700">Orders</p>
+</NavLink>
       </div>
     </div>
   );

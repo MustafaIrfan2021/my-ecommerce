@@ -9,7 +9,6 @@ const List = ({ token }) => {
   const fetchListProducts = async () => {
     try {
       const response = await axios.get(backendUrl + "/api/product/list");
-
       if (response.data.success) {
         setListProducts(response.data.products);
       } else {
@@ -17,7 +16,7 @@ const List = ({ token }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(response.data.message);
+      toast.error("Failed to fetch products");
     }
   };
 
@@ -30,14 +29,14 @@ const List = ({ token }) => {
       );
 
       if (response.data.success) {
-        toast.info(response.data.message);
+        toast.success(response.data.message);
         await fetchListProducts();
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       console.error(error);
-      toast.error(response.data.message);
+      toast.error("Error removing product");
     }
   };
 
@@ -47,32 +46,31 @@ const List = ({ token }) => {
 
   return (
     <>
+      <p className="mb-2 font-medium">All Products List</p>
+
       <div className="flex flex-col gap-2">
-        {/* List Table Title */}
-        <div className="hidden md:grid grid-cols-[0.5fr_1fr_1.5fr_0.5fr_0.5fr_0.5fr_0.2fr] items-center py-1 px-2 border bg-gray-200 text-xl text-center">
+        {/* ------- List Table Title ------- */}
+        <div className="hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm">
           <b>Image</b>
           <b>Name</b>
-          <b>Description</b>
           <b>Category</b>
-          <b>Sub Category</b>
           <b>Price</b>
           <b className="text-center">Action</b>
         </div>
-        {/* Display Products */}
+
+        {/* ------- Product List ------- */}
         {listProducts.map((item, index) => (
           <div
-            className="grid grid-cols-[0.5fr_1fr_1.5fr_0.5fr_0.5fr_0.5fr_0.2fr] md:grid-cols-[0.5fr_1fr_1.5fr_0.5fr_0.5fr_0.5fr_0.2fr] items-center gap-2 py-1 px-2 border text-sm text-center"
+            className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm"
             key={index}
           >
-            <img className="w-12" src={item.image[0]} alt="Product Image" />
-            <p className="text-left">{item.name}</p>
-            <p className="text-left">{item.description}</p>
+            <img className="w-12" src={item.image[0]} alt="" />
+            <p>{item.name}</p>
             <p>{item.category}</p>
-            <p>{item.subCategory}</p>
-            <p>{currency(item.price)}</p>
-            <p
-              onClick={() => removeProduct(item._id)}
-              className="font-bold text-center text-gray-800 bg-red-500 rounded-full cursor-pointer md:text-center max-w-7"
+            <p>{currency}{item.price}</p>
+            <p 
+              onClick={() => removeProduct(item._id)} 
+              className="text-right md:text-center cursor-pointer text-lg hover:text-red-600"
             >
               X
             </p>
