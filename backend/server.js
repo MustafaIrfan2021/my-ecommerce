@@ -16,7 +16,13 @@ connectCloudinary();
 
 // INFO: Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://my-ecommerce-admin-ruby.vercel.app", 
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "token"], 
+  credentials: true
+}));
+
 
 // INFO: API endpoints
 app.use("/api/user", userRouter);

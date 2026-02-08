@@ -47,6 +47,8 @@ const initPay = (order)=>{
             }
            } catch (error) {
             console.log(error)
+
+            
             toast.error(error)
            }
         }
