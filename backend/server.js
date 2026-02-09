@@ -59,6 +59,8 @@ connectCloudinary();
 const allowedOrigins = [
   "https://my-ecommerce-front-end.vercel.app", // User Website
   "https://my-ecommerce-admin-ruby.vercel.app", // Admin Panel
+  "http://localhost:5173",
+  "http://localhost:5174",
 ];
 
 app.use(express.json());
