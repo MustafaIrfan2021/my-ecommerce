@@ -38,7 +38,6 @@
 
 // export default BestSeller;
 
-
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
@@ -50,14 +49,20 @@ const BestSeller = () => {
 
   useEffect(() => {
     if (products && products.length > 0) {
-      // DEBUG: Is line ko uncomment karke console mein check karein agar phir bhi na dikhe
-      // console.log("Products in BestSeller:", products);
-
       const bestProduct = products.filter((item) => {
-        // Ye line check karti hai ke bestseller true hai, "true" string hai, ya number 1 hai
-        return item.bestseller === true || item.bestseller === "true" || item.bestseller === 1;
+        // [FIX] Naming aur Data Type dono ke masle hal:
+        // 1. item.bestseller (saara small)
+        // 2. item.bestSeller (S capital)
+        // 3. String "true" vs Boolean true
+        return (
+          item.bestseller === true || 
+          item.bestSeller === true || 
+          item.bestseller === "true" || 
+          item.bestSeller === "true"
+        );
       });
 
+      console.log("Found BestSellers:", bestProduct); 
       setBestSeller(bestProduct.slice(0, 5));
     }
   }, [products]);
@@ -84,9 +89,8 @@ const BestSeller = () => {
             />
           ))
         ) : (
-          <div className="col-span-full text-center py-10">
-             <p className="text-gray-400">No products marked as Best Seller.</p>
-             <p className="text-xs text-gray-500 mt-2">(Check your Admin Panel to mark products as Bestseller)</p>
+          <div className="col-span-full text-center py-10 text-gray-400">
+            No Best Seller products found.
           </div>
         )}
       </div>
