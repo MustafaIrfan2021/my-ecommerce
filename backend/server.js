@@ -74,7 +74,10 @@ connectDB();
 connectCloudinary();
 
 // Simple CORS for debugging 406 error
-app.use(cors()); 
+app.use(cors({
+  origin: true, // Har request karne wale ko allow karega
+  credentials: true
+}));
 app.use(express.json());
 
 // API Routes
