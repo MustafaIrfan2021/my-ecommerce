@@ -187,7 +187,7 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
     const [search, setSearch] = useState("");
     const [showSearch, setShowSearch] = useState(false);
-    const [cartItems, setCartItems] = useState({});
+    const [cartItems, setCartItems] = useState({}); // Hamesha {} se start karein
     const [token, setToken] = useState('');
     const navigate = useNavigate();
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -195,22 +195,25 @@ const ShopContextProvider = (props) => {
     const delivery_fee = 10;
     const [products, setProducts] = useState([]);
 
-    // 1. SAFE LOAD: LocalStorage se cart uthana (Safe Parsing)
+    // 1. SAFE LOAD: LocalStorage se cart uthana
     useEffect(() => {
         const storedData = localStorage.getItem("cartItems");
         try {
             if (storedData && storedData !== "undefined" && storedData !== "null") {
-                setCartItems(JSON.parse(storedData));
+                const parsedData = JSON.parse(storedData);
+                if (parsedData && typeof parsedData === 'object') {
+                    setCartItems(parsedData);
+                }
             }
         } catch (error) {
             console.error("Cart storage error:", error);
-            setCartItems({}); // Error aaye toh reset kar dein
+            setCartItems({}); 
         }
     }, []);
 
-    // 2. SAFE SAVE: Jab cart change ho toh save karein
+    // 2. SAFE SAVE: Cart save logic
     useEffect(() => {
-        if (cartItems && Object.keys(cartItems).length > 0) {
+        if (cartItems) {
             localStorage.setItem("cartItems", JSON.stringify(cartItems));
         }
     }, [cartItems]);
@@ -225,7 +228,6 @@ const ShopContextProvider = (props) => {
             }
         } catch (error) {
             console.log(error);
-            // toast.error(error.message); // Baar baar error toast se bachne ke liye console check karein
         }
     };
 
@@ -233,7 +235,7 @@ const ShopContextProvider = (props) => {
         try {
             const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
             if (response.data.success) {
-                setCartItems(response.data.cartData);
+                setCartItems(response.data.cartData || {});
             }
         } catch (error) {
             console.log(error);
@@ -247,16 +249,16 @@ const ShopContextProvider = (props) => {
             return;
         }
 
-        let cartData = structuredClone(cartItems);
+        // Fix: cartItems exist na karein toh {} use karein
+        let cartData = cartItems ? structuredClone(cartItems) : {};
 
-        if (cartData[itemId]) {
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += 1;
-            } else {
-                cartData[itemId][size] = 1;
-            }
-        } else {
+        if (!cartData[itemId]) {
             cartData[itemId] = {};
+        }
+
+        if (cartData[itemId][size]) {
+            cartData[itemId][size] += 1;
+        } else {
             cartData[itemId][size] = 1;
         }
 
@@ -275,11 +277,15 @@ const ShopContextProvider = (props) => {
 
     const getCartCount = () => {
         let totalCount = 0;
+        if (!cartItems) return totalCount; // Safety check
+
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
-                if (cartItems[items][item] > 0) {
-                    totalCount += cartItems[items][item];
-                }
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalCount += cartItems[items][item];
+                    }
+                } catch (error) {}
             }
         }
         return totalCount;
@@ -287,33 +293,40 @@ const ShopContextProvider = (props) => {
 
     const updateQuantity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems);
-        cartData[itemId][size] = quantity;
-        setCartItems(cartData);
+        
+        if (cartData[itemId] && cartData[itemId][size] !== undefined) {
+            cartData[itemId][size] = quantity;
+            setCartItems(cartData);
 
-        if (quantity === 0) {
-            toast.success("Item Removed From The Cart");
-        }
+            if (quantity === 0) {
+                toast.success("Item Removed From The Cart");
+            }
 
-        if (token) {
-            try {
-                await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } });
-            } catch (error) {
-                console.log(error);
-                toast.error(error.message);
+            if (token) {
+                try {
+                    await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } });
+                } catch (error) {
+                    console.log(error);
+                    toast.error(error.message);
+                }
             }
         }
     };
 
     const getCartAmount = () => {
         let totalAmount = 0;
+        if (!cartItems || products.length === 0) return totalAmount; // Safety check
+
         for (const items in cartItems) {
             let itemInfo = products.find((product) => product._id === items);
-            for (const item in cartItems[items]) {
-                try {
-                    if (itemInfo && cartItems[items][item] > 0) {
-                        totalAmount += itemInfo.price * cartItems[items][item];
-                    }
-                } catch (error) {}
+            if (itemInfo) {
+                for (const item in cartItems[items]) {
+                    try {
+                        if (cartItems[items][item] > 0) {
+                            totalAmount += itemInfo.price * cartItems[items][item];
+                        }
+                    } catch (error) {}
+                }
             }
         }
         return totalAmount;
@@ -323,12 +336,11 @@ const ShopContextProvider = (props) => {
         getProductsData();
     }, []);
 
-    // FIX: Dependency array [] lagayi taake infinite loop khatam ho
     useEffect(() => {
-        if (!token && localStorage.getItem('token')) {
-            const savedToken = localStorage.getItem('token');
-            setToken(savedToken);
-            getUserCart(savedToken);
+        const localToken = localStorage.getItem('token');
+        if (!token && localToken) {
+            setToken(localToken);
+            getUserCart(localToken);
         }
     }, []); 
 
