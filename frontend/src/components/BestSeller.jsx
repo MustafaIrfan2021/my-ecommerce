@@ -8,15 +8,26 @@ const BestSeller = () => {
   const [bestSeller, setBestSeller] = useState([]);
 
 
+  // useEffect(() => {
+  //   if (products && products.length > 0) {
+  //     const bestProduct = products.filter((item) => {
+  //       const value = item.bestSeller !== undefined ? item.bestSeller : item.bestseller;
+  //       return value === true || value === "true";
+  //     });
+  //     setBestSeller(bestProduct.slice(0, 10));
+  //   }
+  // }, [products]);
+
   useEffect(() => {
-    if (products && products.length > 0) {
-      const bestProduct = products.filter((item) => {
-        const value = item.bestSeller !== undefined ? item.bestSeller : item.bestseller;
-        return value === true || value === "true";
-      });
-      setBestSeller(bestProduct.slice(0, 10));
-    }
-  }, [products]);
+  if (products && Array.isArray(products) && products.length > 0) {
+    const bestProduct = products.filter((item) => {
+      if (!item) return false;
+      const val = item.bestSeller ?? item.bestseller; 
+      return val === true || val === "true";
+    });
+    setBestSeller(bestProduct.reverse().slice(0, 10));
+  }
+}, [products]);
   
 
   return (
