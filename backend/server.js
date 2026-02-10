@@ -56,7 +56,6 @@
 // );
 
 
-
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
@@ -70,15 +69,26 @@ import orderRouter from "./routes/orderRoute.js";
 const app = express();
 const port = process.env.PORT || 4000;
 
+
 connectDB();
 connectCloudinary();
 
-// Simple CORS for debugging 406 error
-app.use(cors({
-  origin: true, // Har request karne wale ko allow karega
-  credentials: true
-}));
+
 app.use(express.json());
+
+
+app.use(cors({
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "token", "Authorization", "Accept"]
+}));
+
+
+app.use((req, res, next) => {
+    res.setHeader('Accept', 'application/json');
+    next();
+});
 
 // API Routes
 app.use("/api/user", userRouter);
@@ -86,13 +96,21 @@ app.use("/api/product", productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 
+// Root Route
 app.get("/", (req, res) => {
-  res.send("API is running...");
+    res.json({ message: "API is running..." });
 });
 
-// OPTIONS handling
 app.options('*', cors());
 
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+});
+
 app.listen(port, () =>
-  console.log(`Server is running at port: ${port}`)
+    console.log(`Server is running at port: ${port}`)
 );
+
+export default app; 
