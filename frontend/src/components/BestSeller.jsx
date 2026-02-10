@@ -7,17 +7,6 @@ const BestSeller = () => {
   const { products } = useContext(ShopContext);
   const [bestSeller, setBestSeller] = useState([]);
 
-
-  // useEffect(() => {
-  //   if (products && products.length > 0) {
-  //     const bestProduct = products.filter((item) => {
-  //       const value = item.bestSeller !== undefined ? item.bestSeller : item.bestseller;
-  //       return value === true || value === "true";
-  //     });
-  //     setBestSeller(bestProduct.slice(0, 10));
-  //   }
-  // }, [products]);
-
   useEffect(() => {
   if (products && Array.isArray(products) && products.length > 0) {
     const bestProduct = products.filter((item) => {
