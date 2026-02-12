@@ -29,7 +29,12 @@ const List = ({ token }) => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message);
+        toast.success(response.data.message, {
+          style: {
+            background: "#111",
+            color: "#60a5fa"  
+          }
+        });
         await fetchListProducts();
       } else {
         toast.error(response.data.message);

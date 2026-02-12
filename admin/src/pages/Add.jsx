@@ -45,7 +45,12 @@ const Add = ({ token }) => {
       const response = await axios.post(backendUrl + "/api/product/add", formData, { headers: { token } });
 
       if (response.data.success) {
-        toast.success(response.data.message);
+        toast.success(response.data.message, {
+        style: {
+        background: "#111",
+        color: "#60a5fa"
+        }
+});
         setName(""); setDescription(""); setPrice(""); setSizes([]); setBestSeller(false);
         setImage1(false); setImage2(false); setImage3(false); setImage4(false);
       } else {
