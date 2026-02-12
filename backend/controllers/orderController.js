@@ -12,30 +12,66 @@ const razorpayInstance=new razorpay({
     key_id:process.env.RAZORPAY_KEY_ID,
     key_secret:process.env.RAZORPAY_KEY_SECRET
 })
+
+// const placeOrder = async (req, res) => {
+//     try {
+//         const { userId, items, amount, address } = req.body
+
+//         const orderData = {
+//             userId,
+//             items,
+//             address,
+//             amount,
+//             paymentMethod: "COD",
+//             payment: false,
+//             date: Date.now()
+//         }
+
+//         const newOrder = new orderModel(orderData)
+//         await newOrder.save()
+
+//         await userModel.findByIdAndUpdate(userId, { cartData: {} })
+//         res.json({ success: true, message: "Order Placed" })
+//     } catch (error) {
+//         console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
+
+// Isko apne controller mein replace karein
 const placeOrder = async (req, res) => {
     try {
-        const { userId, items, amount, address } = req.body
+        // req.body.userId tabhi aayega jab user login hoga (authUser middleware se)
+        const { userId, items, amount, address } = req.body;
 
         const orderData = {
-            userId,
+            // Logic: Agar userId hai to wo use karo, warna "GUEST_ORDER" set kar do
+            userId: userId ? userId : "GUEST_ORDER", 
             items,
             address,
             amount,
             paymentMethod: "COD",
             payment: false,
             date: Date.now()
+        };
+
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
+
+        // Sirf tabhi cart empty karo jab user logged in ho
+        if (userId) {
+            await userModel.findByIdAndUpdate(userId, { cartData: {} });
         }
 
-        const newOrder = new orderModel(orderData)
-        await newOrder.save()
+        res.json({ success: true, message: "Order Placed Successfully!" });
 
-        await userModel.findByIdAndUpdate(userId, { cartData: {} })
-        res.json({ success: true, message: "Order Placed" })
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
 }
+
+
 
 const placeOrderStripe = async (req, res) => {
     try {
@@ -151,14 +187,41 @@ const allOrders = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+// const userOrders = async (req, res) => {
+//     try {
+//         const { userId } = req.body
+//         const orders = await orderModel.find({ userId })
+//         res.json({ success: true, orders })
+//     } catch (error) {
+//         console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
+
+
+// userOrders function ko is se replace karein
 const userOrders = async (req, res) => {
     try {
-        const { userId } = req.body
-        const orders = await orderModel.find({ userId })
-        res.json({ success: true, orders })
+        const { userId, email } = req.body;
+
+        let query = {};
+
+        if (userId) {
+            // Agar user login hai
+            query = { userId };
+        } else if (email) {
+            // Agar guest hai toh uski di hui email se order dhoondo
+            query = { "address.email": email };
+        } else {
+            return res.json({ success: true, orders: [] });
+        }
+
+        const orders = await orderModel.find(query);
+        res.json({ success: true, orders });
+
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
 }
 
