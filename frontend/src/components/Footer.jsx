@@ -10,7 +10,7 @@ const Footer = () => {
         {/* Brand Section */}
         <div>
           <Link to='/'>
-            <img src={assets.unveilleather} className='w-45 mb-5 cursor-pointer' alt="Trendify" />
+            <img src={assets.unveilleather} className='w-45 mb-5 cursor-pointer' alt="unveilleather" />
           </Link>
           <p className='w-full text-gray-600 md:w-2/3 leading-6'>
             Unveilleather is your premier destination for premium leather jackets and high-quality fashion. 
