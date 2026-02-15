@@ -53,6 +53,7 @@ import p_img49 from './p_img49.png'
 import p_img50 from './p_img50.png'
 import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
+ 
 
 
 
@@ -75,6 +76,8 @@ import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import conditions from './conditions.png'
+import unveilleather from './unveilleather.png'
+
 
 export const assets = {
     logo,
@@ -95,7 +98,8 @@ export const assets = {
     razorpay_logo,
     stripe_logo,
     cross_icon,
-    conditions
+    conditions,
+    unveilleather
 }
 
 export const products = [
