@@ -60,7 +60,7 @@ const About = () => {
       <div className='flex flex-col gap-16 my-10 md:flex-row'>
         <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="About Photo" />
         <div className='flex flex-col justify-center gap-6 text-gray-600 md:w-2/4'>
-          <p>Welcome to Trendify, Pakistan's premium leather brand, where style meets unmatched quality. Our mission is to craft timeless leather products — jackets, bags, belts, and accessories — that combine fashion and durability. Every piece is designed with attention to detail and made from ethically sourced leather.</p>
+          <p>Welcome to Unveilleather, Pakistan's premium leather brand, where style meets unmatched quality. Our mission is to craft timeless leather products — jackets, bags, belts, and accessories — that combine fashion and durability. Every piece is designed with attention to detail and made from ethically sourced leather.</p>
           
           <p>From browsing our website to receiving your order, we ensure a smooth and secure shopping experience. We accept international payments through Verifone 2Checkout, allowing customers worldwide to shop confidently. Our team constantly monitors trends to bring you leather products that are stylish, functional, and long-lasting.</p>
 
@@ -79,7 +79,7 @@ const About = () => {
       <div className='flex flex-col mb-20 text-sm md:flex-row'>
         <div className='flex flex-col gap-5 px-10 py-8 border md:px-16 sm:py-20'>
           <b>Premium Quality Leather</b>
-          <p className='text-gray-600'>Every Trendify product is made from ethically sourced leather, crafted to perfection. Durability and style go hand-in-hand to ensure you receive long-lasting products.</p>
+          <p className='text-gray-600'>Every Unveilleather product is made from ethically sourced leather, crafted to perfection. Durability and style go hand-in-hand to ensure you receive long-lasting products.</p>
         </div>
         <div className='flex flex-col gap-5 px-10 py-8 border md:px-16 sm:py-20'>
           <b>Global Shopping Convenience</b>

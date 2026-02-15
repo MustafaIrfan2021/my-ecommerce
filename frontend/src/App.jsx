@@ -47,7 +47,7 @@ const App = () => {
         <Route path='/privacy-policy' element={
           <PolicyPage 
             title="Privacy Policy" 
-            content="At Trendify, your privacy is our priority. We collect only necessary information like your name, shipping address, and email to process your leather jacket orders. Your payment details are processed through secure, encrypted gateways (Verifone/Payoneer) and are never stored on our servers. We do not sell or share your data with third parties for marketing purposes." 
+            content="At Unveilleather, your privacy is our priority. We collect only necessary information like your name, shipping address, and email to process your leather jacket orders. Your payment details are processed through secure, encrypted gateways (Verifone/Payoneer) and are never stored on our servers. We do not sell or share your data with third parties for marketing purposes." 
           />} 
         />
 
@@ -61,7 +61,7 @@ const App = () => {
         <Route path='/terms' element={
           <PolicyPage 
             title="Terms & Conditions" 
-            content="By placing an order on Trendify, you agree to our terms. All products are high-quality leather goods. Prices are listed in USD and exclude any local import duties or taxes applicable in your country. We reserve the right to cancel orders in case of suspected fraud or incorrect pricing. Your order will be shipped within 2-3 business days of payment confirmation." 
+            content="By placing an order on Unveilleather, you agree to our terms. All products are high-quality leather goods. Prices are listed in USD and exclude any local import duties or taxes applicable in your country. We reserve the right to cancel orders in case of suspected fraud or incorrect pricing. Your order will be shipped within 2-3 business days of payment confirmation." 
           />} 
         />
 

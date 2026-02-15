@@ -10,10 +10,10 @@ const Footer = () => {
         {/* Brand Section */}
         <div>
           <Link to='/'>
-            <img src={assets.logo} className='w-32 mb-5 cursor-pointer' alt="Trendify" />
+            <img src={assets.unveilleather} className='w-45 mb-5 cursor-pointer' alt="Trendify" />
           </Link>
           <p className='w-full text-gray-600 md:w-2/3 leading-6'>
-            Trendify is your premier destination for premium leather jackets and high-quality fashion. 
+            Unveilleather is your premier destination for premium leather jackets and high-quality fashion. 
             We ensure 100% secure payments via Verifone and provide worldwide shipping via DHL/FedEx. 
             Your satisfaction is our priority.
           </p>
@@ -36,8 +36,8 @@ const Footer = () => {
         <div>
           <p className='mb-5 text-xl font-medium'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>📞 +92 3XX XXXXXXX</li>
-            <li>📧 contact.trendify@info.com</li>
+            <li>📞 +92 3022338756</li>
+            <li>📧 contact.Unveilleather@info.com</li> 
             <li className='mt-2'>📍 123 Business Street, Karachi, Pakistan</li>
             {/* Payment Icons Trust Badges - Yeh lagana mat bhoolna */}
             <div className='flex gap-2 mt-4'>
@@ -51,7 +51,7 @@ const Footer = () => {
 
       <div>
         <hr />
-        <p className='py-5 text-sm text-center text-gray-500'>Copyright 2024 © Trendify.com - All Rights Reserved.</p>
+        <p className='py-5 text-sm text-center text-gray-500'>Copyright 2026 © Unveilleather.com - All Rights Reserved.</p>
       </div>
     </div>
   )
