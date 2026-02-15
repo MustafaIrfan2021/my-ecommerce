@@ -65,7 +65,7 @@ const About = () => {
           <p>From browsing our website to receiving your order, we ensure a smooth and secure shopping experience. We accept international payments through Verifone 2Checkout, allowing customers worldwide to shop confidently. Our team constantly monitors trends to bring you leather products that are stylish, functional, and long-lasting.</p>
 
           <b className='text-gray-800'>Our Mission</b>
-          <p>To empower customers globally to express themselves with premium leather fashion. We aim to provide top-quality products and seamless international shopping, making Trendify the go-to leather brand for modern style enthusiasts.</p>
+          <p>To empower customers globally to express themselves with premium leather fashion. We aim to provide top-quality products and seamless international shopping, making Unveilleather the go-to leather brand for modern style enthusiasts.</p>
 
           <b className='text-gray-800'>Our Vision</b>
           <p>To become a leading international leather brand, trusted for quality, style, and customer satisfaction. We envision a world where our leather products inspire confidence, elegance, and timeless fashion.</p>
