@@ -38,7 +38,7 @@ const Footer = () => {
           <ul className='flex flex-col gap-2 text-gray-600'>
             <li>📞 +92 3022338756</li>
             <li>📧 contact.Unveilleather@info.com</li> 
-            <li className='mt-2'>📍Office #101, Dolmen Mall, Clifton, Karachi, Pakistan</li>
+            <li className='mt-2'>📍Soldier bazar No 1 Bismillah Manzil 1st floor flat no 102, Karachi, Pakistan</li>
             {/* Payment Icons Trust Badges - Yeh lagana mat bhoolna */}
             <div className='flex gap-2 mt-4'>
                <span className='text-[10px] border px-1 border-gray-400 rounded'>VISA</span>
