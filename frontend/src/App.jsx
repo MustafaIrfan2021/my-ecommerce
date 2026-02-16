@@ -47,14 +47,14 @@ const App = () => {
         <Route path='/privacy-policy' element={
           <PolicyPage 
             title="Privacy Policy" 
-            content="At Unveilleather, your privacy is our priority. We collect only necessary information like your name, shipping address, and email to process your leather jacket orders. Your payment details are processed through secure, encrypted gateways (Verifone/Payoneer) and are never stored on our servers. We do not sell or share your data with third parties for marketing purposes." 
+            content="At Unveilleather, your privacy is our priority. We collect only necessary information like your name, shipping address, and email to process your leather jacket orders. Your payment details are processed through secure, encrypted gateways and are never stored on our servers. We do not sell or share your data with third parties for marketing purposes." 
           />} 
         />
 
         <Route path='/return-policy' element={
           <PolicyPage 
             title="Return & Refund Policy" 
-            content="We want you to love your jacket! We offer a 14-day return and exchange policy from the date of delivery. If the jacket doesn't fit or has a manufacturing defect, please contact us for a return authorization. Once the item is received in its original condition, a full refund will be processed via Verifone/Payoneer to your original payment method within 5-7 business days." 
+            content="We want you to love your jacket! We offer a 14-day return and exchange policy from the date of delivery. If the jacket doesn't fit or has a manufacturing defect, please contact us for a return authorization. Once the item is received in its original condition, a full refund will be processed to your original payment method within 5-7 business days." 
           />} 
         />
 
