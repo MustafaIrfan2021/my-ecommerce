@@ -32,6 +32,9 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/api/ping', (req, res) => {
+  res.status(200).json({ message: "I am awake!" });
+});
 
 // API Routes
 app.use("/api/user", userRouter);
@@ -42,10 +45,6 @@ app.use('/api/order', orderRouter);
 // Root Route
 app.get("/", (req, res) => {
     res.json({ message: "API is running..." });
-});
-
-app.get('/api/ping', (req, res) => {
-  res.status(200).json({ message: "I am awake!" });
 });
 
 app.options('*', cors());
