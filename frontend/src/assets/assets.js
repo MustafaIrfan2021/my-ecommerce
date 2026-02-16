@@ -77,6 +77,8 @@ import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import conditions from './conditions.png'
 import unveilleather from './unveilleather.png'
+import visa from './visa.png'
+import Mastercard_logo from './Mastercard_logo.png'
 
 
 export const assets = {
@@ -99,7 +101,9 @@ export const assets = {
     stripe_logo,
     cross_icon,
     conditions,
-    unveilleather
+    unveilleather,
+    visa,
+    Mastercard_logo
 }
 
 export const products = [
