@@ -17,7 +17,7 @@ const About = () => {
         <div className='flex flex-col justify-center gap-6 text-gray-600 md:w-2/4'>
           <p>Welcome to Unveilleather, Pakistan's premium leather brand, where style meets unmatched quality. Our mission is to craft timeless leather products — jackets, bags, belts, and accessories — that combine fashion and durability. Every piece is designed with attention to detail and made from ethically sourced leather.</p>
           
-          <p>From browsing our website to receiving your order, we ensure a smooth and secure shopping experience. We accept international payments through Verifone 2Checkout, allowing customers worldwide to shop confidently. Our team constantly monitors trends to bring you leather products that are stylish, functional, and long-lasting.</p>
+          <p>From browsing our website to receiving your order, we ensure a smooth and secure shopping experience. We accept international payments, allowing customers worldwide to shop confidently. Our team constantly monitors trends to bring you leather products that are stylish, functional, and long-lasting.</p>
 
           <b className='text-gray-800'>Our Mission</b>
           <p>To empower customers globally to express themselves with premium leather fashion. We aim to provide top-quality products and seamless international shopping, making Unveilleather the go-to leather brand for modern style enthusiasts.</p>
@@ -38,7 +38,7 @@ const About = () => {
         </div>
         <div className='flex flex-col gap-5 px-10 py-8 border md:px-16 sm:py-20'>
           <b>Global Shopping Convenience</b>
-          <p className='text-gray-600'>We accept international payments securely through Verifone 2Checkout. Enjoy easy browsing, multiple payment options, fast shipping, and hassle-free returns worldwide.</p>
+          <p className='text-gray-600'>We accept international payments securely. Enjoy easy browsing, multiple payment options, fast shipping, and hassle-free returns worldwide.</p>
         </div>
         <div className='flex flex-col gap-5 px-10 py-8 border md:px-16 sm:py-20'>
           <b>Exceptional Customer Service</b>

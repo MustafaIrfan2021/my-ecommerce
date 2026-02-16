@@ -14,7 +14,7 @@ const Footer = () => {
           </Link>
           <p className='w-full text-gray-600 md:w-2/3 leading-6'>
             Unveilleather is your premier destination for premium leather jackets and high-quality fashion. 
-            We ensure 100% secure payments via Verifone and provide worldwide shipping via DHL/FedEx. 
+            We ensure 100% secure payments and provide worldwide shipping via DHL/FedEx. 
             Your satisfaction is our priority.
           </p>
         </div>
@@ -37,7 +37,7 @@ const Footer = () => {
           <p className='mb-5 text-xl font-medium'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
             <li>📞 +92 3292176627</li>
-            <li>📧 mustafairfan.work@gmail.com</li> 
+            <li>📧 unveilleather.info@gmail.com</li> 
             <li className='mt-2'>📍Soldier bazar No 1 Bismillah Manzil 1st floor flat no 102, Karachi, Pakistan</li>
             {/* Payment Icons Trust Badges - Yeh lagana mat bhoolna */}
             <div className='flex gap-2 mt-4'>
