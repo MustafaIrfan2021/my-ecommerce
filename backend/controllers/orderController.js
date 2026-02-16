@@ -1,51 +1,275 @@
-import orderModel from "../models/orderModel.js"
-import userModel from "../models/userModel.js"
-import Stripe from 'stripe'
-import razorpay from 'razorpay'
+// import orderModel from "../models/orderModel.js"
+// import userModel from "../models/userModel.js"
+// import Stripe from 'stripe'
+// import razorpay from 'razorpay'
 
 
-const currency='inr'
-const deliveryCharge=10
+// const currency='inr'
+// const deliveryCharge=10
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const razorpayInstance=new razorpay({
-    key_id:process.env.RAZORPAY_KEY_ID,
-    key_secret:process.env.RAZORPAY_KEY_SECRET
-})
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+// const razorpayInstance=new razorpay({
+//     key_id:process.env.RAZORPAY_KEY_ID,
+//     key_secret:process.env.RAZORPAY_KEY_SECRET
+// })
 
+// // const placeOrder = async (req, res) => {
+// //     try {
+// //         const { userId, items, amount, address } = req.body
+
+// //         const orderData = {
+// //             userId,
+// //             items,
+// //             address,
+// //             amount,
+// //             paymentMethod: "COD",
+// //             payment: false,
+// //             date: Date.now()
+// //         }
+
+// //         const newOrder = new orderModel(orderData)
+// //         await newOrder.save()
+
+// //         await userModel.findByIdAndUpdate(userId, { cartData: {} })
+// //         res.json({ success: true, message: "Order Placed" })
+// //     } catch (error) {
+// //         console.log(error)
+// //         res.json({ success: false, message: error.message })
+// //     }
+// // }
+
+// // Isko apne controller mein replace karein
 // const placeOrder = async (req, res) => {
 //     try {
-//         const { userId, items, amount, address } = req.body
+//         // req.body.userId tabhi aayega jab user login hoga (authUser middleware se)
+//         const { userId, items, amount, address } = req.body;
 
 //         const orderData = {
-//             userId,
+//             // Logic: Agar userId hai to wo use karo, warna "GUEST_ORDER" set kar do
+//             userId: userId ? userId : "GUEST_ORDER", 
 //             items,
 //             address,
 //             amount,
 //             paymentMethod: "COD",
 //             payment: false,
 //             date: Date.now()
+//         };
+
+//         const newOrder = new orderModel(orderData);
+//         await newOrder.save();
+
+//         // Sirf tabhi cart empty karo jab user logged in ho
+//         if (userId) {
+//             await userModel.findByIdAndUpdate(userId, { cartData: {} });
 //         }
 
+//         res.json({ success: true, message: "Order Placed Successfully!" });
+
+//     } catch (error) {
+//         console.log(error);
+//         res.json({ success: false, message: error.message });
+//     }
+// }
+
+
+
+// const placeOrderStripe = async (req, res) => {
+//     try {
+//         const { userId, items, amount, address } = req.body
+//         const { origin } = req.headers
+//         const orderData = {
+//             userId,
+//             items,
+//             address,
+//             amount,
+//             paymentMethod: "Stripe",
+//             payment: false,
+//             date: Date.now()
+//         }
+//         const newOrder = new orderModel(orderData)
+//         await newOrder.save()
+        
+//       const line_items= items.map((item)=>({
+//             price_data:{
+//                 currency:currency,
+//                 product_data:{
+//                    name:item.name 
+//                 },
+//                 unit_amount:item.price*100
+//             },
+//             quantity:item.quantity
+//         }))
+
+//         line_items.push({
+//              price_data:{
+//                 currency:currency,
+//                 product_data:{
+//                    name:"Delivery Charges" 
+//                 },
+//                 unit_amount:deliveryCharge*100
+//             },
+//             quantity:1
+//         })
+
+//         const session = await stripe.checkout.sessions.create({
+//             success_url:`${origin}/verify?success=true&orderId=${newOrder._id}`,
+//             cancel_url:`${origin}/verify?success=false&orderId=${newOrder._id}`,
+//             line_items,
+//             mode:'payment'
+//         })
+
+//         res.json({success:true,session_url:session.url})
+
+//     } catch (error) {
+//  console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
+
+// const verifyStripe = async (req,res)=>{
+//     const {orderId,success,userId}= req.body
+// try {
+//      if (success=="true") {
+//         await orderModel.findByIdAndUpdate(orderId,{payment:true})
+//         await userModel.findByIdAndUpdate(userId,{cartData:{}})
+//         res.json({success:true})
+//     }
+//     else{
+//         await orderModel.findByIdAndDelete(orderId)
+//         res.json({success:false})
+//     }
+// } catch (error) {
+//      console.log(error)
+//         res.json({ success: false, message: error.message })
+// }
+   
+// }
+
+// const placeOrderRazorpay = async (req, res) => {
+// try {
+//             const { userId, items, amount, address } = req.body
+//         const orderData = {
+//             userId,
+//             items,
+//             address,
+//             amount,
+//             paymentMethod: "Razorpay",
+//             payment: false,
+//             date: Date.now()
+//         }
 //         const newOrder = new orderModel(orderData)
 //         await newOrder.save()
 
-//         await userModel.findByIdAndUpdate(userId, { cartData: {} })
-//         res.json({ success: true, message: "Order Placed" })
+//         const options = {
+//             amount:amount*100,
+//             currency:currency.toUpperCase(),
+//             receipt:newOrder._id.toString()
+//         }
+
+//         await razorpayInstance.orders.create(options,(error,order)=>{
+// if (error) {
+//     console.log(error)
+//     return res.json({success:false,message:error})
+// }
+// res.json({success:true,order})
+//         })
+// } catch (error) {
+//      console.log(error)
+//         res.json({ success: false, message: error.message })
+// }
+// }
+// const allOrders = async (req, res) => {
+//     try {
+//         const orders = await orderModel.find({})
+//         res.json({ success: true, orders })
+//     } catch (error) {
+//         console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
+// // const userOrders = async (req, res) => {
+// //     try {
+// //         const { userId } = req.body
+// //         const orders = await orderModel.find({ userId })
+// //         res.json({ success: true, orders })
+// //     } catch (error) {
+// //         console.log(error)
+// //         res.json({ success: false, message: error.message })
+// //     }
+// // }
+
+
+// // userOrders function ko is se replace karein
+// const userOrders = async (req, res) => {
+//     try {
+//         const { userId, email } = req.body;
+
+//         let query = {};
+
+//         if (userId) {
+//             // Agar user login hai
+//             query = { userId };
+//         } else if (email) {
+//             // Agar guest hai toh uski di hui email se order dhoondo
+//             query = { "address.email": email };
+//         } else {
+//             return res.json({ success: true, orders: [] });
+//         }
+
+//         const orders = await orderModel.find(query);
+//         res.json({ success: true, orders });
+
+//     } catch (error) {
+//         console.log(error);
+//         res.json({ success: false, message: error.message });
+//     }
+// }
+
+// const updateStatus = async (req, res) => {
+//     try {
+//         const { orderId, status } = req.body
+//         await orderModel.findByIdAndUpdate(orderId, { status })
+//         res.json({ success: true, message: 'Status Updated' })
+
 //     } catch (error) {
 //         console.log(error)
 //         res.json({ success: false, message: error.message })
 //     }
 // }
 
-// Isko apne controller mein replace karein
+// const verifyRazorpay= async (req,res)=>{
+//     try {
+//         const {userId,razorpay_order_id}=req.body
+//         const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
+//         if (orderInfo.status==='paid') {
+//             await orderModel.findByIdAndUpdate(orderInfo.receipt,{payment:true})
+//             await userModel.findByIdAndUpdate(userId,{cartData:{}})
+//             res.json({success:true,message:"Payment Successful"})
+//         } else{
+//             res.json({success:false,message:'Payment Failed'})
+//         }
+//     } catch (error) {
+//         console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
+
+// export { verifyRazorpay,placeOrder,verifyStripe, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus }
+
+
+import orderModel from "../models/orderModel.js"
+import userModel from "../models/userModel.js"
+
+// International Business ke liye USD standard hai
+const currency = 'usd' 
+const deliveryCharge = 10
+
+// COD Order Place karne ke liye
 const placeOrder = async (req, res) => {
     try {
-        // req.body.userId tabhi aayega jab user login hoga (authUser middleware se)
         const { userId, items, amount, address } = req.body;
 
         const orderData = {
-            // Logic: Agar userId hai to wo use karo, warna "GUEST_ORDER" set kar do
             userId: userId ? userId : "GUEST_ORDER", 
             items,
             address,
@@ -58,7 +282,6 @@ const placeOrder = async (req, res) => {
         const newOrder = new orderModel(orderData);
         await newOrder.save();
 
-        // Sirf tabhi cart empty karo jab user logged in ho
         if (userId) {
             await userModel.findByIdAndUpdate(userId, { cartData: {} });
         }
@@ -71,153 +294,47 @@ const placeOrder = async (req, res) => {
     }
 }
 
-
-
-const placeOrderStripe = async (req, res) => {
+// Verifone (2Checkout) Payment Logic
+const placeOrderVerifone = async (req, res) => {
     try {
-        const { userId, items, amount, address } = req.body
-        const { origin } = req.headers
+        const { userId, items, amount, address } = req.body;
+        const { origin } = req.headers;
+
         const orderData = {
-            userId,
+            userId: userId ? userId : "GUEST_ORDER",
             items,
             address,
             amount,
-            paymentMethod: "Stripe",
+            paymentMethod: "Verifone",
             payment: false,
             date: Date.now()
-        }
-        const newOrder = new orderModel(orderData)
-        await newOrder.save()
+        };
+
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
+
+        // Verifone Hosted Checkout URL construct karna
+        // Note: Jab account approve ho jayega, hum ye variables .env mein daalenge
+        const sellerId = process.env.VERIFONE_SELLER_ID; 
+        const checkoutUrl = "https://secure.2checkout.com/checkout/purchase";
         
-      const line_items= items.map((item)=>({
-            price_data:{
-                currency:currency,
-                product_data:{
-                   name:item.name 
-                },
-                unit_amount:item.price*100
-            },
-            quantity:item.quantity
-        }))
+        // Verifone ko redirect karne ke liye parameters
+        const queryParams = new URLSearchParams({
+            sid: sellerId,
+            mode: 'fullpage',
+            currency: currency,
+            total: amount,
+            cart_order_id: newOrder._id.toString(),
+            x_receipt_link_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            return_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            card_holder_name: `${address.firstName} ${address.lastName}`,
+            email: address.email,
+        });
 
-        line_items.push({
-             price_data:{
-                currency:currency,
-                product_data:{
-                   name:"Delivery Charges" 
-                },
-                unit_amount:deliveryCharge*100
-            },
-            quantity:1
-        })
+        // Verifone Checkout URL taiyar hai
+        const finalUrl = `${checkoutUrl}?${queryParams.toString()}`;
 
-        const session = await stripe.checkout.sessions.create({
-            success_url:`${origin}/verify?success=true&orderId=${newOrder._id}`,
-            cancel_url:`${origin}/verify?success=false&orderId=${newOrder._id}`,
-            line_items,
-            mode:'payment'
-        })
-
-        res.json({success:true,session_url:session.url})
-
-    } catch (error) {
- console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
-
-const verifyStripe = async (req,res)=>{
-    const {orderId,success,userId}= req.body
-try {
-     if (success=="true") {
-        await orderModel.findByIdAndUpdate(orderId,{payment:true})
-        await userModel.findByIdAndUpdate(userId,{cartData:{}})
-        res.json({success:true})
-    }
-    else{
-        await orderModel.findByIdAndDelete(orderId)
-        res.json({success:false})
-    }
-} catch (error) {
-     console.log(error)
-        res.json({ success: false, message: error.message })
-}
-   
-}
-
-const placeOrderRazorpay = async (req, res) => {
-try {
-            const { userId, items, amount, address } = req.body
-        const orderData = {
-            userId,
-            items,
-            address,
-            amount,
-            paymentMethod: "Razorpay",
-            payment: false,
-            date: Date.now()
-        }
-        const newOrder = new orderModel(orderData)
-        await newOrder.save()
-
-        const options = {
-            amount:amount*100,
-            currency:currency.toUpperCase(),
-            receipt:newOrder._id.toString()
-        }
-
-        await razorpayInstance.orders.create(options,(error,order)=>{
-if (error) {
-    console.log(error)
-    return res.json({success:false,message:error})
-}
-res.json({success:true,order})
-        })
-} catch (error) {
-     console.log(error)
-        res.json({ success: false, message: error.message })
-}
-}
-const allOrders = async (req, res) => {
-    try {
-        const orders = await orderModel.find({})
-        res.json({ success: true, orders })
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
-// const userOrders = async (req, res) => {
-//     try {
-//         const { userId } = req.body
-//         const orders = await orderModel.find({ userId })
-//         res.json({ success: true, orders })
-//     } catch (error) {
-//         console.log(error)
-//         res.json({ success: false, message: error.message })
-//     }
-// }
-
-
-// userOrders function ko is se replace karein
-const userOrders = async (req, res) => {
-    try {
-        const { userId, email } = req.body;
-
-        let query = {};
-
-        if (userId) {
-            // Agar user login hai
-            query = { userId };
-        } else if (email) {
-            // Agar guest hai toh uski di hui email se order dhoondo
-            query = { "address.email": email };
-        } else {
-            return res.json({ success: true, orders: [] });
-        }
-
-        const orders = await orderModel.find(query);
-        res.json({ success: true, orders });
+        res.json({ success: true, checkout_url: finalUrl });
 
     } catch (error) {
         console.log(error);
@@ -225,33 +342,68 @@ const userOrders = async (req, res) => {
     }
 }
 
-const updateStatus = async (req, res) => {
+// Payment Verify karne ke liye (Redirect ke baad)
+const verifyVerifone = async (req, res) => {
+    const { orderId, success, userId } = req.body;
     try {
-        const { orderId, status } = req.body
-        await orderModel.findByIdAndUpdate(orderId, { status })
-        res.json({ success: true, message: 'Status Updated' })
-
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
-
-const verifyRazorpay= async (req,res)=>{
-    try {
-        const {userId,razorpay_order_id}=req.body
-        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
-        if (orderInfo.status==='paid') {
-            await orderModel.findByIdAndUpdate(orderInfo.receipt,{payment:true})
-            await userModel.findByIdAndUpdate(userId,{cartData:{}})
-            res.json({success:true,message:"Payment Successful"})
-        } else{
-            res.json({success:false,message:'Payment Failed'})
+        if (success === "true") {
+            await orderModel.findByIdAndUpdate(orderId, { payment: true });
+            if (userId && userId !== "GUEST_ORDER") {
+                await userModel.findByIdAndUpdate(userId, { cartData: {} });
+            }
+            res.json({ success: true, message: "Payment Successful" });
+        } else {
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({ success: false, message: "Payment Failed" });
         }
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
 }
 
-export { verifyRazorpay,placeOrder,verifyStripe, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus }
+// Admin ke liye saare orders fetch karna
+const allOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find({});
+        res.json({ success: true, orders });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+// User ya Guest ke apne orders
+const userOrders = async (req, res) => {
+    try {
+        const { userId, email } = req.body;
+        let query = userId ? { userId } : { "address.email": email };
+        
+        const orders = await orderModel.find(query);
+        res.json({ success: true, orders });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+// Order Status update karna (Shipped, Delivered etc)
+const updateStatus = async (req, res) => {
+    try {
+        const { orderId, status } = req.body;
+        await orderModel.findByIdAndUpdate(orderId, { status });
+        res.json({ success: true, message: 'Status Updated' });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export { 
+    placeOrder, 
+    placeOrderVerifone, 
+    verifyVerifone, 
+    allOrders, 
+    userOrders, 
+    updateStatus 
+}
