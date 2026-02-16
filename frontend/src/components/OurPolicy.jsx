@@ -20,8 +20,7 @@ const OurPolicy = () => {
         <img src={assets.quality_icon} className='w-12 m-auto mb-5' alt="Secure Payment" />
         <p className='font-bold text-gray-800 uppercase tracking-wide'>Secure Payments</p>
         <p className='text-gray-500 mt-2 leading-relaxed'>
-          Your transactions are 100% secure. We use Verifone (2Checkout) to process 
-          payments, ensuring your card data is encrypted and protected.
+          Your transactions are 100% secure, ensuring your card data is encrypted and protected.
         </p>
       </div>
 
