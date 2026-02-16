@@ -89,13 +89,12 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "token", "Authorization", "Accept"]
 }));
 
-// Accept Header Middleware
 app.use((req, res, next) => {
     res.setHeader('Accept', 'application/json');
     next();
 });
 
-// 1. PING ROUTE (Sab se upar taake UptimeRobot foran hit kare)
+
 app.get('/api/ping', (req, res) => {
     res.status(200).json({ 
         success: true, 
