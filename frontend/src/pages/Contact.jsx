@@ -31,9 +31,9 @@ const Contact = () => {
           
           <div className='text-gray-500'>
             <p className='font-medium text-gray-700'>Customer Support:</p>
-            <p>Tel: (+92) 302-2338756</p>
+            <p>Tel: (+92) 348-0138499</p>
             <p>Email: contact.Unveilleather@info.com</p>
-            <p>WhatsApp: (+92) 302-2338756</p>
+            <p>WhatsApp: (+92) 348-0138499</p>
           </div>
 
           <p className='text-xl font-semibold text-gray-600'>Business Hours</p>
