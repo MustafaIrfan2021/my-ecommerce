@@ -36,7 +36,7 @@ const Footer = () => {
         <div>
           <p className='mb-5 text-xl font-medium'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>📞 +92 3480138499</li>
+            <li>📞 +92 3292176627</li>
             <li>📧 contact.Unveilleather@info.com</li> 
             <li className='mt-2'>📍Soldier bazar No 1 Bismillah Manzil 1st floor flat no 102, Karachi, Pakistan</li>
             {/* Payment Icons Trust Badges - Yeh lagana mat bhoolna */}
