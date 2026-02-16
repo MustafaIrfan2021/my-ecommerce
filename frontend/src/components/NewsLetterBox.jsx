@@ -15,7 +15,7 @@ const NewsLetterBox = () => {
             <input 
                 className='w-full outline-none sm:flex-1' 
                 type="email" 
-                placeholder='hello@gmail.com'
+                placeholder='contact.Unveilleather@info.com'
                 required 
             />
             <button type='submit' className='px-10 py-4 text-xs text-white bg-black'>SUBSCRIBE</button>
