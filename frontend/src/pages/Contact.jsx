@@ -25,8 +25,8 @@ const Contact = () => {
         <div className='flex flex-col items-start justify-center gap-6 md:w-1/3'>
           <p className='text-xl font-semibold text-gray-600'>Our Office & Studio</p>
           <p className='text-gray-500 leading-6'>
-            Soldier bazar No 1 Bismillah Manzil 1st floor flat no 102 <br /> 
-            Karachi, 75550, Pakistan
+            📍D.H.A. Phase 8 <br /> 
+            Karachi, Pakistan
           </p>
           
           <div className='text-gray-500'>
