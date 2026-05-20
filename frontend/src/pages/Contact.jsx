@@ -9,7 +9,6 @@ const Contact = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    // Yahan aap apna backend logic ya email service (like EmailJS) laga sakte hain
     console.log("Form Submitted:", formData);
     alert("Thank you! Your message has been sent.");
   }

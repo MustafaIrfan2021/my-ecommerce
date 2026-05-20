@@ -15,7 +15,7 @@ const OurPolicy = () => {
         </p>
       </div>
 
-      {/* 2. Secure Payment - Verifone Approval ke liye ye bohot zaroori hai */}
+      {/* 2. Secure Payment  */}
       <div className='flex-1 px-4'>
         <img src={assets.quality_icon} className='w-12 m-auto mb-5' alt="Secure Payment" />
         <p className='font-bold text-gray-800 uppercase tracking-wide'>Secure Payments</p>
@@ -24,7 +24,7 @@ const OurPolicy = () => {
         </p>
       </div>
 
-      {/* 3. Global Shipping - Leather Jackets ke liye important info */}
+      {/* 3. Global Shipping - Leather Jackets important info */}
       <div className='flex-1 px-4'>
         <img src={assets.conditions} className='w-12 m-auto mb-5' alt="Shipping" />
         <p className='font-bold text-gray-800 uppercase tracking-wide'>Worldwide Shipping</p>

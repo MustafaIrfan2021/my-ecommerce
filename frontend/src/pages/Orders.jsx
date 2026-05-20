@@ -10,15 +10,13 @@ const Orders = () => {
 
   const loadOrderData = async () => {
     try {
-      // Check karein ke guest ki email local storage mein hai ya nahi
       const guestEmail = localStorage.getItem('guestEmail');
 
-      // Agar user login nahi hai aur guest email bhi nahi hai, toh return kar jao
+
       if (!token && !guestEmail) {
         return null;
       }
 
-      // API call: Hum body mein email bhej rahe hain guest orders dhoondne ke liye
       const response = await axios.post(
         backendUrl + '/api/order/userorders', 
         { email: guestEmail }, 

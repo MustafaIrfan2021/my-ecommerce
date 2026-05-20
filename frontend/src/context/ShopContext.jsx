@@ -70,7 +70,7 @@ const ShopContextProvider = (props) => {
             return;
         }
 
-        // Fix: cartItems exist na karein toh {} use karein
+
         let cartData = cartItems ? structuredClone(cartItems) : {};
 
         if (!cartData[itemId]) {

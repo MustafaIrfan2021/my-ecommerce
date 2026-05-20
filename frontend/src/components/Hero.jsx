@@ -73,7 +73,6 @@ import { assets } from '../assets/assets'
 
 const Hero = () => {
   return (
-    /* overflow-hidden lagaya hai taake bahar na nikle aur border ko rounded kiya hai */
     <div className='flex flex-col sm:flex-row border border-gray-400 overflow-hidden rounded-sm'>
         
         {/* Hero left side */}

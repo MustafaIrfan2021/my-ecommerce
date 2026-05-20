@@ -108,7 +108,7 @@ const NavBar = () => {
     return (
         <div className='flex items-center justify-between py-5 font-medium relative'>
             
-            {/* Logo: Responsive width set ki hai */}
+
             <Link to='/'>
                 <img src={assets.unveilleather} className='w-32 sm:w-36' alt="unveilleather" />
             </Link>
